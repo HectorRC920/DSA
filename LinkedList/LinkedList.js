@@ -96,7 +96,7 @@ class LinkedList {
     if(index > this.length || index < 0){
       return false
     }
-
+    
     const newNode = new Node(value)
     let temp = this.get(index - 1)
     newNode.next = temp.next
@@ -104,6 +104,18 @@ class LinkedList {
     // console.log(temp);
     this.length++
     return true
+  }
+  remove(index){
+    if(index == this.length){
+      return this.pop
+    }
+    if(index == 0){
+      return this.shift()
+    }
+    const oneBefore = this.get(index - 1)
+    const toRemove = this.get(index)
+    oneBefore.next = toRemove.next
+    toRemove.next = null
   }
 }
 
