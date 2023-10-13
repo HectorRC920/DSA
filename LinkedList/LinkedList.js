@@ -159,6 +159,24 @@ class LinkedList {
       fastPointer = fastPointer.next.next;
     }
   }
+  hasLoop(){
+    if(!this.head){
+      return false
+    }
+    if(this.length == 1){
+      return false
+    }
+    let temp = this.head
+    let tempLength = 0
+    while(temp != null){
+      temp = temp.next
+      tempLength++
+      if(tempLength > this.length){
+        return true
+      }
+    }
+    return false
+  }
 }
 
 class Node {
@@ -167,19 +185,22 @@ class Node {
     this.next = null;
   }
 }
-const ola = new LinkedList(1);
-ola.push(2);
-ola.push(3);
-ola.push(4);
-ola.push(5);
-// ola.push(6)
-// ola.push(12)
-// ola.unshift(3);
-// console.log(ola.pop());
-// ola.pop();
-// ola.shift()
-// ola.set(2,100)
-// ola.insert(0,100)
-// console.log(ola.get(1))
-ola.findMiddleNode();
-console.log(ola);
+const myLinkedList = new LinkedList(1);
+myLinkedList.push(2);
+myLinkedList.push(3);
+myLinkedList.push(4);
+myLinkedList.push(5);
+// myLinkedList.push(6)
+// myLinkedList.push(12)
+// myLinkedList.unshift(3);
+// console.log(myLinkedList.pop());
+// myLinkedList.pop();
+// myLinkedList.shift()
+// myLinkedList.set(2,100)
+// myLinkedList.insert(0,100)
+// console.log(myLinkedList.get(1))
+// myLinkedList.findMiddleNode();
+// myLinkedList.tail.next = myLinkedList.head.next;
+console.log(myLinkedList.hasLoop());
+
+console.log(myLinkedList);
