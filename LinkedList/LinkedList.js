@@ -159,50 +159,84 @@ class LinkedList {
       fastPointer = fastPointer.next.next;
     }
   }
-  hasLoop(){
-    if(!this.head){
-      return false
+  hasLoop() {
+    if (!this.head) {
+      return false;
     }
-    if(this.length == 1){
-      return false
+    if (this.length == 1) {
+      return false;
     }
-    let temp = this.head
-    let tempLength = 0
-    while(temp != null){
-      temp = temp.next
-      tempLength++
-      if(tempLength > this.length){
-        return true
+    let temp = this.head;
+    let tempLength = 0;
+    while (temp != null) {
+      temp = temp.next;
+      tempLength++;
+      if (tempLength > this.length) {
+        return true;
       }
     }
-    return false
+    return false;
   }
   findKthFromEnd(k) {
     if (k <= 0) {
-        return null;
+      return null;
     }
-    k--
+    k--;
     let fastPointer = this.head;
     let slowPointer = this.head;
 
     // Move the fast pointer k nodes ahead
     for (let i = 0; i < k; i++) {
-        if (fastPointer === null) {
-            return null; // k is greater than or equal to the number of nodes
-        }
-        fastPointer = fastPointer.next;
-        console.log(fastPointer);
+      if (fastPointer === null) {
+        return null; // k is greater than or equal to the number of nodes
+      }
+      fastPointer = fastPointer.next;
+      console.log(fastPointer);
     }
 
     // Move both pointers until the fast pointer reaches the end
     while (fastPointer && fastPointer.next) {
-        fastPointer = fastPointer.next;
-        slowPointer = slowPointer.next;
-        // console.log(slowPointer);
+      fastPointer = fastPointer.next;
+      slowPointer = slowPointer.next;
+      // console.log(slowPointer);
     }
 
     return slowPointer;
-}
+  }
+  partitionList(x) {
+    // Initialize two dummy nodes for the two chains
+    const lessThanXHead = new Node(0);
+    let lessThanX = lessThanXHead;
+    const moreThanXHead = new Node(0);
+    let moreThanX = moreThanXHead;
+  
+    let current = this.head;
+  
+    while (current !== null) {
+      if (current.value < x) {
+        lessThanX.next = current;
+        lessThanX = lessThanX.next;
+      } else {
+        moreThanX.next = current;
+        moreThanX = moreThanX.next;
+      }
+  
+      current = current.next;
+    }
+  
+    // Connect the two chains and set the end of the "moreThanX" chain to null
+    lessThanX.next = moreThanXHead.next;
+    moreThanX.next = null;
+  
+    // Update the head and tail of the linked list
+    this.head = lessThanXHead.next;
+    this.tail = moreThanXHead.value === 0 ? lessThanX : moreThanX;
+  
+    // Update the length (you may want to calculate this separately)
+    // this.length = ...;
+  
+    return this;
+  }
 }
 
 class Node {
