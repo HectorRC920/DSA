@@ -177,6 +177,32 @@ class LinkedList {
     }
     return false
   }
+  findKthFromEnd(k) {
+    if (k <= 0) {
+        return null;
+    }
+    k--
+    let fastPointer = this.head;
+    let slowPointer = this.head;
+
+    // Move the fast pointer k nodes ahead
+    for (let i = 0; i < k; i++) {
+        if (fastPointer === null) {
+            return null; // k is greater than or equal to the number of nodes
+        }
+        fastPointer = fastPointer.next;
+        console.log(fastPointer);
+    }
+
+    // Move both pointers until the fast pointer reaches the end
+    while (fastPointer && fastPointer.next) {
+        fastPointer = fastPointer.next;
+        slowPointer = slowPointer.next;
+        // console.log(slowPointer);
+    }
+
+    return slowPointer;
+}
 }
 
 class Node {
@@ -201,6 +227,7 @@ myLinkedList.push(5);
 // console.log(myLinkedList.get(1))
 // myLinkedList.findMiddleNode();
 // myLinkedList.tail.next = myLinkedList.head.next;
-console.log(myLinkedList.hasLoop());
+// console.log(myLinkedList.hasLoop());
+console.log(myLinkedList.findKthFromEnd(2));
 
-console.log(myLinkedList);
+// console.log(myLinkedList);
