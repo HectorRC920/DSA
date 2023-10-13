@@ -45,95 +45,119 @@ class LinkedList {
     }
     newNode.next = this.head;
     this.head = newNode;
-    this.length++
+    this.length++;
     return this;
   }
-  shift(){
-    if(!this.head){
-      return undefined
-    }else {
-      const newHead = this.head.next
-      const oldHead = this.head
-      oldHead.next = null
-      this.head = newHead
-      this.length--
-      if(this.length == 0){
-        this.head = null
-        this.tail = null
+  shift() {
+    if (!this.head) {
+      return undefined;
+    } else {
+      const newHead = this.head.next;
+      const oldHead = this.head;
+      oldHead.next = null;
+      this.head = newHead;
+      this.length--;
+      if (this.length == 0) {
+        this.head = null;
+        this.tail = null;
       }
-      return oldHead
+      return oldHead;
     }
   }
-  get(index){
-    if(index > this.length || index < 0){
-      return null
+  get(index) {
+    if (index > this.length || index < 0) {
+      return null;
     }
-    let temp = this.head
+    let temp = this.head;
     // const pre = this.head
     for (let i = 0; i < index; i++) {
-      if(temp.next){
-        temp = temp.next
+      if (temp.next) {
+        temp = temp.next;
       }
     }
-    return temp
+    return temp;
   }
-  set(index,value){
-    const temp = this.get(index)
-    if(temp){
-      temp.value = value
-      return true
-    }else {
-      return false
+  set(index, value) {
+    const temp = this.get(index);
+    if (temp) {
+      temp.value = value;
+      return true;
+    } else {
+      return false;
     }
   }
-  insert(index, value){
-    if(index == this.length){
-      return this.push(value)
+  insert(index, value) {
+    if (index == this.length) {
+      return this.push(value);
     }
-    if(index == 0){
-      return this.unshift(value)
+    if (index == 0) {
+      return this.unshift(value);
     }
-    if(index > this.length || index < 0){
-      return false
+    if (index > this.length || index < 0) {
+      return false;
     }
-    
-    const newNode = new Node(value)
-    let temp = this.get(index - 1)
-    newNode.next = temp.next
-    temp.next = newNode
-    // console.log(temp);
-    this.length++
-    return true
-  }
-  remove(index){
-    if(index == this.length){
-      return this.pop
-    }
-    if(index == 0){
-      return this.shift()
-    }
-    const oneBefore = this.get(index - 1)
-    const toRemove = this.get(index)
-    oneBefore.next = toRemove.next
-    toRemove.next = null
-  }
-  reverse(){
-    let temp = this.head
-    this.head = this.tail
-    this.tail = temp
 
-    let next = temp.next
-    let prev = null
-    for (let i = 0; i < this.length; i++) {
-      
-      next = temp.next
-      temp.next = prev
-      prev = temp
-      temp = next
-      
-      
+    const newNode = new Node(value);
+    let temp = this.get(index - 1);
+    newNode.next = temp.next;
+    temp.next = newNode;
+    // console.log(temp);
+    this.length++;
+    return true;
+  }
+  remove(index) {
+    if (index == this.length) {
+      return this.pop;
     }
-    return this
+    if (index == 0) {
+      return this.shift();
+    }
+    const oneBefore = this.get(index - 1);
+    const toRemove = this.get(index);
+    oneBefore.next = toRemove.next;
+    toRemove.next = null;
+  }
+  reverse() {
+    let temp = this.head;
+    this.head = this.tail;
+    this.tail = temp;
+
+    let next = temp.next;
+    let prev = null;
+    for (let i = 0; i < this.length; i++) {
+      next = temp.next;
+      temp.next = prev;
+      prev = temp;
+      temp = next;
+    }
+    return this;
+  }
+  // findMiddleNode(){
+  //   let length = 0
+  //   let temp = this.head
+  //   let temp2 = this.head
+  //   while(temp !== null){
+  //     temp = temp.next
+  //     length ++
+  //   }
+  //   length = (Math.floor(length / 2))
+  //   for (let i = 0; i < length; i++) {
+  //     temp2 = temp2.next
+  //   }
+  //   return temp2
+  // }
+  findMiddleNode() {
+    if (!this.head) {
+      return null; // Empty list, no middle node.
+    }
+
+    let slowPointer = this.head;
+    let fastPointer = this.head;
+
+    while (fastPointer !== null && fastPointer.next !== null) {
+      slowPointer = slowPointer.next;
+      fastPointer = fastPointer.next.next;
+    }
   }
 }
 
@@ -145,13 +169,17 @@ class Node {
 }
 const ola = new LinkedList(1);
 ola.push(2);
-ola.push(16)
+ola.push(3);
+ola.push(4);
+ola.push(5);
+// ola.push(6)
 // ola.push(12)
 // ola.unshift(3);
 // console.log(ola.pop());
 // ola.pop();
 // ola.shift()
 // ola.set(2,100)
-ola.insert(0,100)
+// ola.insert(0,100)
 // console.log(ola.get(1))
+ola.findMiddleNode();
 console.log(ola);
